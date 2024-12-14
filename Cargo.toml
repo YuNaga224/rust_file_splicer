@@ -1,0 +1,12 @@
+[package]
+name = "rust_file_splicer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = {version = "4.4", features = ["derive"]}
+colored = "2.0"
+
+[[bin]]
+name = "rust_file_splicer"
+path = "src/main.rs"
