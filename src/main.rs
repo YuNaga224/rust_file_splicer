@@ -16,7 +16,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let output_path = determine_output_path(&args.output)?;
     let mut output_writer = create_output_writer(&output_path)?;
 
-    let file_contents = collect_file_contents(&args.dir, &args.ext, &args.separator, &output_path)?;
+    let file_contents = collect_file_contents(&args.dir, &args.ext, &args.separator, &output_path, &args.exclude)?;
 
     if file_contents.is_empty() {
         println!("{}", "指定された条件に一致するファイルが見つかりませんでした。".yellow());

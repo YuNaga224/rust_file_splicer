@@ -7,6 +7,7 @@ pub fn collect_file_contents(
     ext: &str,
     separator: &str,
     output_path: &PathBuf,
+    exclude: &Vec<String>,
 ) -> Result<String, Box<dyn Error>> {
     let mut all_contents = String::new();
 
@@ -16,13 +17,19 @@ pub fn collect_file_contents(
         let entry = entry?;
         let path = entry.path();
         if path.is_dir() {
-            let subdir_contents = collect_file_contents(&path, ext, separator, output_path)?;
+            let subdir_contents = collect_file_contents(&path, ext, separator, output_path, exclude)?;
             all_contents.push_str(&subdir_contents);
             continue;
         }
         if path.is_file() && path.extension().map_or(false, |e| e == ext) {
-            let content = read_file_content(&path)?;
             let filename = path.file_name().and_then(|name| name.to_str()).unwrap_or("unknown");
+            
+            // 除外リストに含まれるかチェック
+            if exclude.iter().any(|ex| filename.ends_with(ex)) {
+                continue;
+            }
+
+            let content = read_file_content(&path)?;
 
             let separator_line = separator.replace("{filename}", filename);
             all_contents.push_str(&separator_line);

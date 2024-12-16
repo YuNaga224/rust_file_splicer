@@ -19,4 +19,9 @@ pub struct Args {
     /// ファイル区切り文字 (省略時は Markdown のコードブロック)
     #[arg(long, value_name = "STRING", default_value = "#### {filename}")]
     pub separator: String,
+
+    // 除外するファイル名
+        /// 除外するファイル名
+    #[arg(long, value_name = "FILENAME", default_value = "", num_args=0..)]
+    pub exclude: Vec<String>,
 }
