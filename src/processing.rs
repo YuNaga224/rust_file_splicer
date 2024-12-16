@@ -28,7 +28,7 @@ pub fn collect_file_contents(
             all_contents.push_str(&separator_line);
             all_contents.push_str("\n");
             if output_path == &PathBuf::from("output.md") || output_path.extension().map_or(false, |e| e == "md") {
-                all_contents.push_str(&format!("``` {}\n", filename));
+                all_contents.push_str(&format!("``` {}\n", ext));
             }
             all_contents.push_str("\n");
              // ファイル内容
